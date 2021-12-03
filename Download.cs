@@ -1,5 +1,7 @@
 using System.Net;
 using System.Collections.Concurrent;
+using iTextSharp.text.pdf;
+using iTextSharp.text.exceptions;
 
 namespace IMRScript
 {
@@ -12,42 +14,32 @@ namespace IMRScript
             client.Timeout = TimeSpan.FromSeconds(10);
         }
 
-        public async Task<Boolean> RunDownloads(string id, string url1, string url2, ConcurrentBag<(string,string,string)> result,string filepath)
+        public Boolean CheckPDF(string filepath)
         {
-
-            (string,string) res = await this.downloadFile(url1,filepath,id);
-            if(res.Item1 == "no")
+            try
             {
-                (string,string) res2 = await this.downloadFile(url2,filepath,id);
-                if(res2.Item1 == "no")
-                {
-                    result.Add((res2.Item1,res.Item1,res.Item2));
-                }
-                else
-                {
-                    result.Add((res2.Item1,"",""));
-                }
+                using(PdfReader pdf = new PdfReader(filepath))
+                return true;
             }
-            else
+            catch (Exception)
             {
-                result.Add((res.Item1,"",""));
+                return false;
             }
-            return true;
         }
-        public async Task<(string,string)> downloadFile(string url,string outputDir, string id){
+
+        public async Task<(Boolean,string)> DownloadFile(string url,string outputDir, string id){
             if(url.Length == 0){
-                Console.WriteLine("Empty url");
-                return ("no","Empty URL");
+                return (false,"Empty URL");
             }
             string filepath = outputDir + id + ".pdf";
             if(File.Exists(filepath))
             {
-                return ("yes","");
+                return (true,"");
             }
 
             try
             {
-                HttpResponseMessage req = await client.GetAsync(url);
+                HttpResponseMessage req = await client.GetAsync(url).ConfigureAwait(false);
                 if(req.IsSuccessStatusCode)
                 {
                     using (var fs = new FileStream(filepath,FileMode.CreateNew))
@@ -58,31 +50,36 @@ namespace IMRScript
             }
             catch (System.NotSupportedException)
             {
-                return ("no","SomeError"); 
+                return (false,"SomeError"); 
             }
             catch(System.Net.Http.HttpRequestException)
             {
-                return ("no","Host does not exist");
+                return (false,"Host does not exist");
             }
             catch(System.Threading.Tasks.TaskCanceledException)
             {
-                return ("no","Timeout error");
+                return (false,"Timeout error");
             }
             catch(System.InvalidOperationException)
             {
-                return ("no","Invalid URL");
+                return (false,"Invalid URL");
             }
             catch(System.UriFormatException)
             {
-                return ("no","Invalid URL");
+                return (false,"Invalid URL");
             }
             catch (Exception e)
             {  
                 Console.WriteLine(e.ToString());
-                return ("no",e.ToString());
+                return (false,e.ToString());
+            }
+            if(!CheckPDF(filepath))
+            {
+                File.Delete(filepath);
+                return (false,"Invalid pdf or link");
             }
 
-            return ("yes","");
+            return (true,"");
         }
     }
 }
