@@ -1,0 +1,15 @@
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\IMRScript.exe
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\IMRScript.deps.json
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\IMRScript.runtimeconfig.json
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\IMRScript.dll
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\ref\IMRScript.dll
+C:\Users\KOM\Documents\IMRScript\bin\Debug\net6.0\IMRScript.pdb
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.csproj.AssemblyReference.cache
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.AssemblyInfoInputs.cache
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.AssemblyInfo.cs
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.csproj.CoreCompileInputs.cache
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.dll
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\ref\IMRScript.dll
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.pdb
+C:\Users\KOM\Documents\IMRScript\obj\Debug\net6.0\IMRScript.genruntimeconfig.cache
