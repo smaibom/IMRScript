@@ -27,6 +27,11 @@ namespace IMRScript
 
         public void WriteExcel(string filepath,ConcurrentBag<(string,string,string,string)> data)
         {
+            int startId = 50041;
+            if(File.Exists(filepath))
+            {
+                File.Delete(filepath);
+            }
             using (ExcelPackage excelFile = new ExcelPackage())
             {
                 //create a new Worksheet
@@ -37,9 +42,11 @@ namespace IMRScript
                 worksheet.Cells["B1"].Value = "Result";
                 worksheet.Cells["C1"].Value = "error msg 1";
                 worksheet.Cells["D1"].Value = "error msg 2";
-                int i = 2;
+                int i = 0;
                 foreach((string,string,string,string) res in data)
                 {
+                    i = Int32.Parse(res.Item1.Substring(2));
+                    i = i - startId + 2;
                     worksheet.Cells["A"+i.ToString()].Value = res.Item1;
                     worksheet.Cells["B"+i.ToString()].Value = res.Item2;
                     worksheet.Cells["C"+i.ToString()].Value = res.Item3;
